@@ -123,6 +123,28 @@
 	标签已经推送到远程，要删除远程标签：
 		git tag -d v0.9                               先从本地删除
 		git push origin :refs/tags/v0.9               然后，从远程删除
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+pip install -i http://pypi.douban.com/simple aiomysql
+
+
+pip3 install aiomysql
+
+
+pip3 install -i http://pypi.douban.com/simple aiomysql
+
+
+pip install -i https://pypi.douban.com/simple aiomysql		
+		
 
 
 
