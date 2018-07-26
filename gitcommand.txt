@@ -48,3 +48,94 @@
 	场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。
 	场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD <file>，就回到了场景1，第二步按场景1操作。
 	场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。
+	
+14、git remote add origin git@server-name:path/repo-name.git      关联一个远程库，server-name问用户名，不是邮箱，path是当前文件夹名称，	repo-name同path
+
+15、git push -u origin master                          第一次推送master分支的所有内容
+	git push origin master                              此后，每次本地提交后，只要有必要，就可以使用该命令推送最新修改
+	
+16、git clone git@github.com:dapeng1990/pythonTrain.git     将远程仓代码clone到本地
+
+17、git checkout -b dev                         创建dev分支，然后切换到dev分支，git checkout命令加上-b参数表示创建并切换
+	相当于以下两条命令：
+	git branch dev                              创建dev分支
+	git checkout dev                            切换的dev分支
+
+18、git branch                                  查看当前分支，该命令会列出所有分支，当前分支前面会标一个*号
+
+19、git merge dev                               命令用于合并指定分支到当前分支
+
+20、git branch -d dev                           删除指定分支
+
+
+21、git log --graph --pretty=oneline --abbrev-commit               查看分支的合并情况
+	git log --graph
+
+22、git merge --no-ff -m "merge with no-ff" dev                    合并dev分支，请注意--no-ff参数，表示禁用Fast forward  因为本次合并要创建一个新的commit，所以加上-m参数，把commit描述写进去
+	git merge --no-ff dev                                           使用no-ff后，会多生成一个commit 记录，并强制保留develop分支的开发记录
+
+23、git stash                                                      当前工作现场“储藏”起来，等以后恢复现场后继续工作，Git把stash内容存在某个地方
+	（1）git stash pop                                                  恢复的同时把stash内容也删
+	（2）git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除
+
+24、git branch -D dev                                            丢弃dev这个没有被合并过的分支
+
+
+25、当你从远程仓库克隆时，实际上Git自动把本地的master分支和远程的master分支对应起来了，并且，远程仓库的默认名称是origin
+	git remote            查看远程库的信息
+	git remote -v         显示更详细的信息
+	$ git remote -v
+	origin  git@github.com:michaelliao/learngit.git (fetch)
+	origin  git@github.com:michaelliao/learngit.git (push)
+	上面显示了可以抓取和推送的origin的地址
+	
+26、git push origin master                    推送分支，就是把该分支上的所有本地提交推送到远程库，推送master到远程库
+	
+	并不是一定要把本地分支往远程推送，那么，哪些分支需要推送，哪些不需要呢？
+		master分支是主分支，因此要时刻与远程同步；
+		dev分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步；
+		bug分支只用于在本地修复bug，就没必要推到远程了，除非老板要看看你每周到底修复了几个bug；
+		feature分支(单个功能分支)是否推到远程，取决于你是否和你的小伙伴合作在上面开发。
+
+27、git pull                  抓取远程的新提交
+
+28、git checkout -b branch-name origin/branch-name                  在本地创建和远程分支对应的分支，本地和远程分支的名称最好一致
+29、git branch --set-upstream branch-name origin/branch-name        建立本地分支和远程分支的关联		
+
+30、git rebase                                  rebase操作可以把本地未push的分叉提交历史整理成直线,rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比
+	每次提交前，可以
+	1、git stash,保存本地记录，
+	2、git pull,获取最新提交内容
+	3、git rebase,整理提交记录
+	4、git push origin master,提交当前
+	5、git stash pop  从stash中恢复
+	
+31、git tag v1.0   打标签，默认标签是打在最新提交的commit上的，标签不是按时间顺序列出，而是按字母排序的
+	git tag        查看所有标签
+	git tag v0.9 f52c633      对指定commit打标签
+	git show v1.0               查看标签信息
+	git tag -a v0.1 -m "version 0.1 released" 1094adb               创建带有说明的标签，用-a指定标签名，-m指定说明文字，1094adb指commit记录
+	标签总是和某个commit挂钩。如果这个commit既出现在master分支，又出现在dev分支，那么在这两个分支上都可以看到这个标签
+	git tag -d v0.1            删除标签，创建的标签都只存储在本地，不会自动推送到远程。所以，打错的标签可以在本地安全删除
+	git push origin v1.0       推送某个标签到远程
+	git push origin --tags     一次性推送全部尚未推送到远程的本地标签
+	
+	标签已经推送到远程，要删除远程标签：
+		git tag -d v0.9                               先从本地删除
+		git push origin :refs/tags/v0.9               然后，从远程删除
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
